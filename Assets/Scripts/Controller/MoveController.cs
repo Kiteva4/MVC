@@ -10,19 +10,27 @@ namespace MVCExample
         private float _vertical;
         private Vector3 _move;
         private IUserInputProxy _horizontalInputProxy;
+        private IUserInputProxy _verticalInputProxy;
 
         public MoveController(IUserInputProxy horizontal, IUserInputProxy vertical, Transform unit, IUnit unitData)
         {
             _unit = unit;
             _unitData = unitData;
             _horizontalInputProxy = horizontal;
+            _verticalInputProxy = vertical;
+
             _horizontalInputProxy.AxisOnChange += HorizontalOnAxisOnChange;
-            vertical.AxisOnChange += f => _vertical = f;
+            _verticalInputProxy.AxisOnChange += VerticalOnAxisOnChange;
         }
 
         private void HorizontalOnAxisOnChange(float value)
         {
             _horizontal = value;
+        }
+
+        private void VerticalOnAxisOnChange(float value)
+        {
+            _vertical = value;
         }
 
         public void Execute(float deltaTime)
@@ -35,6 +43,7 @@ namespace MVCExample
         public void Cleanup()
         {
             _horizontalInputProxy.AxisOnChange -= HorizontalOnAxisOnChange;
+            _verticalInputProxy.AxisOnChange -= VerticalOnAxisOnChange;
         }
     }
 }

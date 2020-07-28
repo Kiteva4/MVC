@@ -6,11 +6,16 @@ namespace MVCExample
     {
         [SerializeField] private Data _data;
         private Controllers _controllers;
-        
-        private void Start()
+
+        private void OnEnable()
         {
             _controllers = new Controllers(_data);
             _controllers.Initialization();
+        }
+
+        void OnDisable()
+        {
+            _controllers.Cleanup();
         }
 
         private void Update()
