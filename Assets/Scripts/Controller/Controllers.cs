@@ -31,13 +31,14 @@ namespace MVCExample
             var player = playerFactory.CreatePlayer();
 
             var enemiesPlaceHolder = new GameObject("enemiesPlaceHolder");
+            Object.Instantiate(data.Enviroment.spaceParticle, enemiesPlaceHolder.transform);
 
             CompositeMove enemies = new CompositeMove();
 
             _executeControllers = new IExecute[(int)CONTROLLERS.count];
 
             _executeControllers[(int)CONTROLLERS.InputController] = new InputController(pcInputHorizontal, pcInputVertical, pcInputFire);
-            _executeControllers[(int)CONTROLLERS.MoveController] = new MoveController(pcInputHorizontal, pcInputVertical, player, data.Player);
+            _executeControllers[(int)CONTROLLERS.MoveController] = new MoveController(pcInputHorizontal, pcInputVertical, enemiesPlaceHolder.transform, data.Player);
             _executeControllers[(int)CONTROLLERS.EnemyMoveController] = new EnemyMoveController(enemies, player);
             _executeControllers[(int)CONTROLLERS.ShootController] = new ShootController(pcInputFire);
             _executeControllers[(int)CONTROLLERS.EnemySpawnController] = new EnemySpawnController(enemies, data, enemiesPlaceHolder.transform);

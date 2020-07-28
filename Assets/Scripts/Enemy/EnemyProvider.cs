@@ -17,14 +17,29 @@ namespace MVCExample
 
         public void Move(Vector3 point)
         {
-            if ((_transform.localPosition - point).sqrMagnitude >= _stopDistance * _stopDistance)
+            if ((_transform.position - point).sqrMagnitude >= _stopDistance * _stopDistance)
             {
-                var dir = (point - _transform.localPosition).normalized;
+                var dir = (point - _transform.position).normalized;
                 _rigidbody2D.velocity = dir * _speed;
             }
             else
             {
                 _rigidbody2D.velocity = Vector2.zero;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            //TODO поменять на теги
+            if (other.gameObject.name == "player")
+            {
+                other.gameObject.SetActive(false);
+                // gameStateController set state to gameOver
+            }
+            else if (other.gameObject.name == "bullet")
+            {
+                //TODO add pull of enemy objects
+                // scoreController incrementScore and destroy this enemy
             }
         }
     }

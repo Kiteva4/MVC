@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9ad77a179284ab280ca3b7de5c51601, type: 3}
-  m_Name: Data
+  m_Script: {fileID: 11500000, guid: 916c80ca1af66b41a8da69d482a0b37a, type: 3}
+  m_Name: EnviromentData
   m_EditorClassIdentifier: 
-  _playerDataPath: UnitSettings
-  _enemyDataPath: EnemySettings
-  _enviromentDataPath: EnviromentData
+  spaceParticle: {fileID: 5844728410194450557, guid: cea02440e5e266b78a3b6df46702ab68,
+    type: 3}

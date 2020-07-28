@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MVCExample
 {
-    public class ShootController : IExecute, ICleanup
+    public sealed class ShootController : IExecute, ICleanup
     {
         private float _fire;
         private IUserInputProxy _fireInputProxy;

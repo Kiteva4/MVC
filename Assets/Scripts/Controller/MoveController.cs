@@ -37,7 +37,7 @@ namespace MVCExample
         {
             var speed = deltaTime * _unitData.Speed;
             _move.Set(_horizontal * speed, _vertical * speed, 0.0f);
-            _unit.localPosition += _move;
+            _unit.localPosition -= _move;
         }
 
         public void Cleanup()

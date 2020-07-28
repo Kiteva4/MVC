@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MVCExample
 {
-    public class EnemySpawnController : IExecute
+    public sealed class EnemySpawnController : IExecute
     {
         CompositeMove _enemies;
         IEnemyFactory _enemyFactory;
