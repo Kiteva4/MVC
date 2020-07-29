@@ -2,14 +2,6 @@
 
 namespace MVCExample
 {
-    public enum GameStates
-    {
-        gameInMenu,
-        gameStart,
-        gameOver,
-        count
-    }
-
     public sealed class GameStateController
     {
         public Action openMenu = delegate () { };
@@ -17,22 +9,26 @@ namespace MVCExample
         public Action gameOver = delegate () { };
 
         private GameStates _gameState;
-
-        void setState(GameStates _state)
+        public GameStates GameState => _gameState;
+        public void SetState(GameStates state)
         {
-            switch (_state)
+            switch (state)
             {
-                case GameStates.gameInMenu:
-                    _gameState = _state;
+                case GameStates.GameInMenu:
+                    _gameState = state;
                     openMenu();
                     break;
-                case GameStates.gameStart:
-                    _gameState = _state;
+                case GameStates.GameStart:
+                    _gameState = state;
                     gameStart();
                     break;
-                case GameStates.gameOver:
-                    _gameState = _state;
+                case GameStates.GameOver:
+                    _gameState = state;
                     gameOver();
+                    break;
+                case GameStates.None:
+                    break;
+                case GameStates.Count:
                     break;
                 default:
                     break;

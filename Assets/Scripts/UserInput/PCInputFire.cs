@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace MVCExample
 {
-    public sealed class PCInputFire : IUserInputProxy
+    public sealed class PCInputFire : IUserInputProxy<bool>
     {
-        public event Action<float> AxisOnChange = delegate (float f) { };
+        public event Action<bool> AxisOnChange = delegate (bool t) { };
 
         public void GetAxis()
         {
-            AxisOnChange.Invoke(Input.GetAxis(AxisManager.FIRE1));
+            AxisOnChange.Invoke(Input.GetButtonDown(AxisManager.FIRE1));
         }
     }
 }

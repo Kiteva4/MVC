@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-public sealed class ScoreController
+﻿public sealed class ScoreController
 {
     private int _score;
     public int Score => _score;

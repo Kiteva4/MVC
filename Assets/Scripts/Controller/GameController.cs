@@ -9,17 +9,20 @@ namespace MVCExample
 
         private void OnEnable()
         {
+            // Debug.Log("OnEnable");
             _controllers = new Controllers(_data);
             _controllers.Initialization();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _controllers.Cleanup();
         }
 
         private void Update()
         {
+            // Debug.Log("SetActive");
+            // gameObject.SetActive(true);
             var deltaTime = Time.deltaTime;
             for (var i = 0; i < _controllers.Length; i++)
             {

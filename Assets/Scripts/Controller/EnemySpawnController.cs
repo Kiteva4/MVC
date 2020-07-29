@@ -1,28 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MVCExample
 {
     public sealed class EnemySpawnController : IExecute
     {
-        CompositeMove _enemies;
-        IEnemyFactory _enemyFactory;
-        Transform _enemiesPlaceHolder;
-        Data _data;
+        private readonly CompositeMove _enemies;
+        private readonly IEnemyFactory _enemyFactory;
+        private readonly Transform _enemiesPlaceHolder;
+        private readonly Data _data;
 
-        public EnemySpawnController(CompositeMove enemies, Data data, Transform enemiesPlaceHolder)
+        public EnemySpawnController(CompositeMove enemies, 
+            IEnemyFactory enemyFactory, 
+            Data data,
+            Transform enemiesPlaceHolder)
         {
             _enemies = enemies;
             _data = data;
             _enemiesPlaceHolder = enemiesPlaceHolder;
-
-            _enemyFactory = new EnemyFactory();
+            _enemyFactory = enemyFactory;
         }
 
         public void Execute(float deltaTime)
         {
-            if (_enemies.isEmpty)
+            if (_enemies.IsEmpty)
             {
                 _enemies.AddUnit(_enemyFactory.CreateEnemy(_data.Enemy, EnemyType.Small, _enemiesPlaceHolder));
             }

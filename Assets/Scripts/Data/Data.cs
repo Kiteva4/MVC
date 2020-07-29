@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using UnityEngine;
 
-
 namespace MVCExample
 {
     [CreateAssetMenu(fileName = "Data", menuName = "Data/Data")]
@@ -10,10 +9,12 @@ namespace MVCExample
         [SerializeField] private string _playerDataPath;
         [SerializeField] private string _enemyDataPath;
         [SerializeField] private string _enviromentDataPath;
+        [SerializeField] private string _bulletsDataPath;
 
         private PlayerData _player;
         private EnemyData _enemy;
-        private EnviromentData _enviromentData;
+        private EnviromentData _enviroment;
+        private BulletsData _bullets;
 
         public PlayerData Player
         {
@@ -21,13 +22,12 @@ namespace MVCExample
             {
                 if (_player == null)
                 {
-                    _player = Load<PlayerData>("Data/" + _playerDataPath);
+                    _player = Load<PlayerData>($"Data/{_playerDataPath}");
                 }
 
                 return _player;
             }
         }
-
 
         public EnemyData Enemy
         {
@@ -35,7 +35,7 @@ namespace MVCExample
             {
                 if (_enemy == null)
                 {
-                    _enemy = Load<EnemyData>("Data/" + _enemyDataPath);
+                    _enemy = Load<EnemyData>($"Data/{_enemyDataPath}");
                 }
 
                 return _enemy;
@@ -46,12 +46,25 @@ namespace MVCExample
         {
             get
             {
-                if (_enviromentData == null)
+                if (_enviroment == null)
                 {
-                    _enviromentData = Load<EnviromentData>("Data/" + _enviromentDataPath);
+                    _enviroment = Load<EnviromentData>($"Data/{_enviromentDataPath}");
                 }
 
-                return _enviromentData;
+                return _enviroment;
+            }
+        }
+
+        public BulletsData BulletsData
+        {
+            get
+            {
+                if (_bullets == null)
+                {
+                    _bullets = Load<BulletsData>($"Data{_bulletsDataPath}");
+                }
+
+                return _bullets;
             }
         }
 

@@ -9,10 +9,10 @@ namespace MVCExample
         private float _horizontal;
         private float _vertical;
         private Vector3 _move;
-        private IUserInputProxy _horizontalInputProxy;
-        private IUserInputProxy _verticalInputProxy;
+        private readonly IUserInputProxy<float> _horizontalInputProxy;
+        private readonly IUserInputProxy<float> _verticalInputProxy;
 
-        public MoveController(IUserInputProxy horizontal, IUserInputProxy vertical, Transform unit, IUnit unitData)
+        public MoveController(IUserInputProxy<float> horizontal, IUserInputProxy<float> vertical, Transform unit, IUnit unitData)
         {
             _unit = unit;
             _unitData = unitData;

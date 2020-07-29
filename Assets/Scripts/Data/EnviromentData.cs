@@ -2,7 +2,7 @@
 
 namespace MVCExample
 {
-    [CreateAssetMenu(fileName = "EnviromentData", menuName = "Data/Unit/EnviromentData")]
+    [CreateAssetMenu(fileName = "EnviromentSettings", menuName = "Data/Unit/EnviromentData")]
     public sealed class EnviromentData : ScriptableObject
     {
         public GameObject spaceParticle;

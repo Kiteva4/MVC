@@ -15,11 +15,11 @@ namespace MVCExample
             public EnemyProvider EnemyPrefab;
         }
 
-        [SerializeField] private List<EnemyInfo> _enemyInfos;
+        [SerializeField] private List<EnemyInfo> _enemyInfo;
 
         public EnemyProvider GetEnemy(EnemyType type)
         {
-            var enemyInfo = _enemyInfos.First(info => info.Type == type);
+            var enemyInfo = _enemyInfo.First(info => info.Type == type);
             return enemyInfo.EnemyPrefab;
         }
     }
