@@ -1,4 +1,6 @@
-﻿public sealed class ScoreController
+﻿using MVCExample;
+
+public sealed class ScoreController : IExecute
 {
     private int _score;
     public int Score => _score;
@@ -11,5 +13,10 @@
     public void AddScore(int _value)
     {
         _score += _value;
+    }
+
+    public void Execute(float deltaTime)
+    {
+        
     }
 }

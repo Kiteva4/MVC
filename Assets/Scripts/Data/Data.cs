@@ -14,7 +14,7 @@ namespace MVCExample
         private PlayerData _player;
         private EnemyData _enemy;
         private EnviromentData _enviroment;
-        private BulletsData _bullets;
+        private BulletsSettings _bullets;
 
         public PlayerData Player
         {
@@ -55,13 +55,13 @@ namespace MVCExample
             }
         }
 
-        public BulletsData BulletsData
+        public BulletsSettings Bullets
         {
             get
             {
                 if (_bullets == null)
                 {
-                    _bullets = Load<BulletsData>($"Data{_bulletsDataPath}");
+                    _bullets = Load<BulletsSettings>($"Data/{_bulletsDataPath}");
                 }
 
                 return _bullets;

@@ -16,6 +16,10 @@ namespace MVCExample
         }
 
         [SerializeField] private List<EnemyInfo> _enemyInfo;
+        [SerializeField] private float _enemySpawnIntervalTime;
+        public float SpawnIntervalTime => _enemySpawnIntervalTime;
+        [SerializeField] private int _maxEnemiesInPool;
+        public int MaxEnemiesInPool => _maxEnemiesInPool;
 
         public EnemyProvider GetEnemy(EnemyType type)
         {

@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace MVCExample
 {
     public interface IBulletFactory
     {
-        IBullet CreateBullet(BulletsData data, BulletsType type);
+        IBullet CreateBullet(BulletsSettings settings, BulletsType type, Transform bulletsPlaceHolder);
     }
 }

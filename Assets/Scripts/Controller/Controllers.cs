@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MVCExample.Events;
 using UnityEngine;
 
 namespace MVCExample
@@ -11,16 +12,19 @@ namespace MVCExample
 
         public IExecute this[int index] => _executeControllers[index];
 
-        public Controllers(Data data)
+        public Controllers(Data data, IEnemySpawnEvent enemySpawnHandler, IGameStartEvent gameStartEventHandler, IGameOverEvent gameOverEventHandler)
         {
             var pcInputHorizontal = new PCInputHorizontal();
             var pcInputVertical = new PCInputVertical();
             var pcInputFire = new PCInputFire();
-
+            
             IPlayerFactory playerFactory = new PlayerFactory(data.Player);
             var player = playerFactory.CreatePlayer();
 
-            var enemiesPlaceHolder = new GameObject("enemiesPlaceHolder");
+            var enemiesPlaceHolder = new GameObject("enemiesPlaceHolder").transform;
+            var bulletsPlaceHolder = new GameObject("bulletsPlaceHolder").transform;
+            bulletsPlaceHolder.parent = enemiesPlaceHolder;
+            
             Object.Instantiate(data.Enviroment.spaceParticle, enemiesPlaceHolder.transform);
 
             var enemies = new CompositeMove();
@@ -30,10 +34,10 @@ namespace MVCExample
             var controllers = new List<IExecute>
             {
                 new InputController(pcInputHorizontal, pcInputVertical, pcInputFire),
-                new MoveController(pcInputHorizontal, pcInputVertical, enemiesPlaceHolder.transform, data.Player),
+                new MoveController(pcInputHorizontal, pcInputVertical, enemiesPlaceHolder, data.Player),
                 new EnemyMoveController(enemies, player),
-                new ShootController(pcInputFire, bulletFactory, data.BulletsData),
-                new EnemySpawnController(enemies, enemyFactory, data, enemiesPlaceHolder.transform)
+                new ShootController(pcInputFire, bulletFactory, data.Bullets, bulletsPlaceHolder),
+                new EnemySpawnController(enemies, enemyFactory, data.Enemy, enemiesPlaceHolder, enemySpawnHandler),
             };
 
             _executeControllers = controllers.ToArray();

@@ -10,22 +10,22 @@ namespace MVCExample
 
         private readonly IUserInputProxy<bool> _fireInputProxy;
         private readonly IBulletFactory _bulletFactory;
-        private readonly BulletsData _bulletsData;
-
-        private Stack<BulletProvider> _bulletsPool;
-        private Queue<BulletProvider> _activeBulletsOnScene;
+        private readonly BulletsSettings _bulletsSettings;
+        private readonly Transform _bulletsPlaceHolder;
         
-        private bool PollIsEmpty => _bulletsPool.Count == 0;
+        private readonly BulletProvider[] _bulletsPool;
+        private int _bulletIndex = 0;
         
         public ShootController(IUserInputProxy<bool> fireInputProxy, IBulletFactory bulletFactory,
-            BulletsData bulletsData)
+            BulletsSettings bulletsSettings,Transform bulletsPlaceHolder)
         {
             _fireInputProxy = fireInputProxy;
             _bulletFactory = bulletFactory;
-            _bulletsData = bulletsData;
+            _bulletsSettings = bulletsSettings;
             _generatedBulletsType = BulletsType.Single;
-
-            _bulletsPool = new Stack<BulletProvider>(_bulletsData.MaxBulletsInPool);
+            _bulletsPlaceHolder = bulletsPlaceHolder;
+            
+            _bulletsPool = new BulletProvider[_bulletsSettings.MaxBulletsInPool];
             
             _fireInputProxy.AxisOnChange += FireOnAxisOnChange;
         }
@@ -42,6 +42,12 @@ namespace MVCExample
                 Debug.Log("Fire");
                 Shoot();
             }
+
+            foreach (var bullet in _bulletsPool)
+            {
+                if(bullet.isActiveAndEnabled)
+                    bullet.Move(Vector3.zero);
+            }
         }
 
         public void Cleanup()
@@ -51,40 +57,25 @@ namespace MVCExample
 
         public void Initialization()
         {
-            for (int i = 0; i < _bulletsData.MaxBulletsInPool; i++)
+            for (int i = 0; i < _bulletsSettings.MaxBulletsInPool; i++)
             {
-                var bullet = _bulletFactory.CreateBullet(_bulletsData, _generatedBulletsType) as BulletProvider;
+                var bullet = _bulletFactory.CreateBullet(_bulletsSettings, _generatedBulletsType, _bulletsPlaceHolder) as BulletProvider;
                 bullet.gameObject.SetActive(false);
-                _bulletsPool.Push(bullet);
+                _bulletsPool[i] = bullet;
             }
         }
 
-        private void OnWeaponChange()
+        private void OnWeaponChange(BulletsType type)
         {
+            _generatedBulletsType = type;
+            Initialization();
         }
 
         private void Shoot()
         {
-            if (_activeBulletsOnScene.Count < _bulletsData.MaxBulletsInPool)
-            {
-                if (!PollIsEmpty)
-                {
-                    var bullet = _bulletsPool.Pop();
-                    bullet.gameObject.SetActive(true);
-                    _activeBulletsOnScene.Enqueue(bullet);
-                }
-                else
-                {
-                    var bullet = _bulletFactory.CreateBullet(_bulletsData, _generatedBulletsType) as BulletProvider;
-                    bullet.gameObject.SetActive(true);
-                }
-            }
-            else
-            {
-                var bullet = _activeBulletsOnScene.Dequeue();
-                bullet.gameObject.SetActive(true);
-                _activeBulletsOnScene.Enqueue(bullet);
-            }
+            _bulletsPool[_bulletIndex].Pull();
+            ++_bulletIndex;
+            _bulletIndex %= _bulletsPool.Length;
         }
     }
 }

@@ -1,14 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using MVCExample.Events;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace MVCExample
 {
-    public sealed class EnemyProvider : MonoBehaviour, IEnemy
+    public sealed class EnemyProvider : MonoBehaviour, IEnemy /*, IGameOverEvent, IScoreAddEvent*/
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _stopDistance;
         private Rigidbody2D _rigidbody2D;
         private Transform _transform;
+        private CompositeMove _compositeMove;
+        private IGameOverEvent _gameOverEventImplementation;
 
+        // public event GameOverEventHandler GameOver = delegate { };
+        // public event ScoreAddEventHandler ScoreAdded = delegate { };
+        
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -31,16 +40,28 @@ namespace MVCExample
         private void OnTriggerEnter2D(Collider2D other)
         {
             //TODO поменять на теги
-            if (other.gameObject.name == "player")
+            if (string.Equals(other.gameObject.name, "player") )
             {
                 other.gameObject.SetActive(false);
-                // gameStateController set state to gameOver
+                gameObject.SetActive(false);
+                //!TODO Need some eventManager
+                // GameOver();
             }
-            else if (other.gameObject.name == "bullet")
+            else if (string.Equals(other.gameObject.name, "bullet"))
             {
-                //TODO add pull of enemy objects
-                // scoreController incrementScore and destroy this enemy
+                //!TODO Need some eventManager
+                // ScoreAdded();               
             }
+        }
+
+        public void SerializeGameData(CompositeMove compositeMove)
+        {
+            _compositeMove = compositeMove;
+        }
+
+        private void OnDisable()
+        {
+            _compositeMove.RemoveUnit(this);
         }
     }
 }

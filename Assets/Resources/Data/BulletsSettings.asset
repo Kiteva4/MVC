@@ -19,4 +19,4 @@ MonoBehaviour:
   - Type: 2
     BulletPrefab: {fileID: 2126454209339975144, guid: c16ee5163d82e50cd9dbf71a33ff4f86,
       type: 3}
-  _maxBulletsInPool: 5
+  _maxBulletsInPool: 25

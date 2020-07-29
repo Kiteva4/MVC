@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MVCExample
 {
     [CreateAssetMenu(fileName = "BulletsSettings", menuName = "Data/Unit/BulletsSettings")]
-    public class BulletsData : ScriptableObject
+    public class BulletsSettings : ScriptableObject
     {
         [Serializable]
         private struct BulletInfo

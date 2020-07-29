@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 34974872549907830}
   - component: {fileID: 2126454209339975144}
-  m_Layer: 0
+  - component: {fileID: 4365109522389923843}
+  m_Layer: 9
   m_Name: SingleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,6 +45,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dda60b57d1843708191cc4fd9f283d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 15
+--- !u!50 &4365109522389923843
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34974872549907831}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &34974874120850610
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,7 +78,7 @@ GameObject:
   - component: {fileID: 34974874120850609}
   - component: {fileID: 34974874120850623}
   - component: {fileID: 34974874120850608}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
